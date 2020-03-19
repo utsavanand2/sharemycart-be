@@ -1,7 +1,7 @@
 /*
  * Collaborative shopping
  *
- * Collaboratively go shopping. Create shopping lists, share them with others, bring their needs along 
+ * Collaboratively go shopping. Create shopping lists, share them with others, bring their needs along
  *
  * API version: 1.0.0
  * Contact: collaborative-shopping@beimir.net
@@ -22,12 +22,15 @@ type Route struct {
 	Method      string
 	Pattern     string
 	HandlerFunc http.HandlerFunc
+	Firebase    Firebase
 }
 
 type Routes []Route
 
-func NewRouter() *mux.Router {
+// NewRouter returns a new mux.Router
+func (firebase *Firebase) NewRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
+	routes := getRouteSlice(firebase)
 	for _, route := range routes {
 		var handler http.Handler
 		handler = route.HandlerFunc
@@ -43,106 +46,124 @@ func NewRouter() *mux.Router {
 	return router
 }
 
-func Index(w http.ResponseWriter, r *http.Request) {
+func (firebase *Firebase) Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello World!")
 }
 
-var routes = Routes{
-	Route{
-		"Index",
-		"GET",
-		"/",
-		Index,
-	},
+func getRouteSlice(firebase *Firebase) Routes {
+	var routes = Routes{
+		Route{
+			"Index",
+			"GET",
+			"/",
+			firebase.Index,
+			*firebase,
+		},
 
-	Route{
-		"AddUser",
-		strings.ToUpper("Post"),
-		"/auth/register",
-		AddUser,
-	},
+		Route{
+			"AddUser",
+			strings.ToUpper("Post"),
+			"/auth/register",
+			firebase.AddUser,
+			*firebase,
+		},
 
-	Route{
-		"EmailVerification",
-		strings.ToUpper("Post"),
-		"/auth/reset-password",
-		EmailVerification,
-	},
+		Route{
+			"EmailVerification",
+			strings.ToUpper("Post"),
+			"/auth/reset-password",
+			firebase.EmailVerification,
+			*firebase,
+		},
 
-	Route{
-		"LogoutUser",
-		strings.ToUpper("Post"),
-		"/auth/logout",
-		LogoutUser,
-	},
+		Route{
+			"LogoutUser",
+			strings.ToUpper("Post"),
+			"/auth/logout",
+			firebase.LogoutUser,
+			*firebase,
+		},
 
-	Route{
-		"ResetPassword",
-		strings.ToUpper("Post"),
-		"/auth/reset-password/{token}",
-		ResetPassword,
-	},
+		Route{
+			"ResetPassword",
+			strings.ToUpper("Post"),
+			"/auth/reset-password/{token}",
+			firebase.ResetPassword,
+			*firebase,
+		},
 
-	Route{
-		"UserLogin",
-		strings.ToUpper("Post"),
-		"/auth/login",
-		UserLogin,
-	},
+		Route{
+			"UserLogin",
+			strings.ToUpper("Post"),
+			"/auth/login",
+			firebase.UserLogin,
+			*firebase,
+		},
 
-	Route{
-		"AddShoppingList",
-		strings.ToUpper("Post"),
-		"/lists",
-		AddShoppingList,
-	},
+		Route{
+			"AddShoppingList",
+			strings.ToUpper("Post"),
+			"/lists",
+			firebase.AddShoppingList,
+			*firebase,
+		},
 
-	Route{
-		"DeleteShoppingList",
-		strings.ToUpper("Delete"),
-		"/lists/{id}",
-		DeleteShoppingList,
-	},
+		Route{
+			"DeleteShoppingList",
+			strings.ToUpper("Delete"),
+			"/lists/{id}",
+			firebase.DeleteShoppingList,
+			*firebase,
+		},
 
-	Route{
-		"GetShoppingLists",
-		strings.ToUpper("Get"),
-		"/lists",
-		GetShoppingLists,
-	},
+		Route{
+			"GetShoppingLists",
+			strings.ToUpper("Get"),
+			"/lists",
+			firebase.GetShoppingLists,
+			*firebase,
+		},
 
-	Route{
-		"UpdateShoppingList",
-		strings.ToUpper("Put"),
-		"/lists/{id}",
-		UpdateShoppingList,
-	},
+		Route{
+			"UpdateShoppingList",
+			strings.ToUpper("Put"),
+			"/lists/{id}",
+			firebase.UpdateShoppingList,
+			*firebase,
+		},
 
-	Route{
-		"AddShoppingListItem",
-		strings.ToUpper("Post"),
-		"/lists/{id}/items",
-		AddShoppingListItem,
-	},
+		Route{
+			"AddShoppingListItem",
+			strings.ToUpper("Post"),
+			"/lists/{id}/items",
+			firebase.AddShoppingListItem,
+			*firebase,
+		},
 
-	Route{
-		"DeleteShoppingListItem",
-		strings.ToUpper("Delete"),
-		"/lists/{id}/items/{item_id}",
-		DeleteShoppingListItem,
-	},
+		Route{
+			"DeleteShoppingListItem",
+			strings.ToUpper("Delete"),
+			"/lists/{id}/items/{item_id}",
+			firebase.DeleteShoppingListItem,
+			*firebase,
+		},
 
-	Route{
-		"GetShoppingListItems",
-		strings.ToUpper("Get"),
-		"/lists/{id}",
-		GetShoppingListItems,
-	},
+		Route{
+			"GetShoppingListItems",
+			strings.ToUpper("Get"),
+			"/lists/{id}",
+			firebase.GetShoppingListItems,
+			*firebase,
+		},
 
-	Route{
-		"UpdateShoppingListItem",
-		strings.ToUpper("Put"),
-		"/lists/{id}/items/{item_id}",
-		UpdateShoppingListItem,
-	},
+		Route{
+			"UpdateShoppingListItem",
+			strings.ToUpper("Put"),
+			"/lists/{id}/items/{item_id}",
+			firebase.UpdateShoppingListItem,
+			*firebase,
+		},
+	}
+
+	return routes
 }

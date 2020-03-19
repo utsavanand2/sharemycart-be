@@ -1,7 +1,7 @@
 /*
  * Collaborative shopping
  *
- * Collaboratively go shopping. Create shopping lists, share them with others, bring their needs along 
+ * Collaboratively go shopping. Create shopping lists, share them with others, bring their needs along
  *
  * API version: 1.0.0
  * Contact: collaborative-shopping@beimir.net
@@ -13,22 +13,26 @@ import (
 	"net/http"
 )
 
-func AddShoppingList(w http.ResponseWriter, r *http.Request) {
+// AddShoppingList adds the shopping list to the DB
+func (f *Firebase) AddShoppingList(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
-func DeleteShoppingList(w http.ResponseWriter, r *http.Request) {
+// DeleteShoppingList deletes the shopping list to the DB
+func (f *Firebase) DeleteShoppingList(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
-func GetShoppingLists(w http.ResponseWriter, r *http.Request) {
+// GetShoppingLists gets the shopping list to the DB
+func (f *Firebase) GetShoppingLists(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
-func UpdateShoppingList(w http.ResponseWriter, r *http.Request) {
+// UpdateShoppingList updates the shopping list to the DB
+func (f *Firebase) UpdateShoppingList(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }

@@ -1,7 +1,7 @@
 /*
  * Collaborative shopping
  *
- * Collaboratively go shopping. Create shopping lists, share them with others, bring their needs along 
+ * Collaboratively go shopping. Create shopping lists, share them with others, bring their needs along
  *
  * API version: 1.0.0
  * Contact: collaborative-shopping@beimir.net
@@ -10,23 +10,24 @@
 package swagger
 
 import (
-    "log"
-    "net/http"
-    "time"
+	"net/http"
+	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
+// Logger logs the relevant info about the requests
 func Logger(inner http.Handler, name string) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        start := time.Now()
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		defer logrus.Printf(
+			"%s %s %s %s",
+			r.Method,
+			r.RequestURI,
+			name,
+			time.Since(start),
+		)
 
-        inner.ServeHTTP(w, r)
-
-        log.Printf(
-            "%s %s %s %s",
-            r.Method,
-            r.RequestURI,
-            name,
-            time.Since(start),
-        )
-    })
+		inner.ServeHTTP(w, r)
+	})
 }
