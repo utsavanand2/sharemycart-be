@@ -1,7 +1,7 @@
 /*
  * Collaborative shopping
  *
- * Collaboratively go shopping. Create shopping lists, share them with others, bring their needs along 
+ * Collaboratively go shopping. Create shopping lists, share them with others, bring their needs along
  *
  * API version: 1.0.0
  * Contact: collaborative-shopping@beimir.net
@@ -13,27 +13,32 @@ import (
 	"net/http"
 )
 
-func AddUser(w http.ResponseWriter, r *http.Request) {
+// AddUser creates a new user in Firebase Auth
+func (f *Firebase) AddUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
-func EmailVerification(w http.ResponseWriter, r *http.Request) {
+// EmailVerification verifies the email of the user
+func (f *Firebase) EmailVerification(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
-func LogoutUser(w http.ResponseWriter, r *http.Request) {
+// LogoutUser logs the user out of Firebase Auth
+func (f *Firebase) LogoutUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
-func ResetPassword(w http.ResponseWriter, r *http.Request) {
+// ResetPassword resets the password of the user
+func (f *Firebase) ResetPassword(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
-func UserLogin(w http.ResponseWriter, r *http.Request) {
+// UserLogin logs the user in in Firebase Auth
+func (f *Firebase) UserLogin(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
