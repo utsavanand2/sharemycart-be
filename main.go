@@ -28,14 +28,14 @@ var (
 func main() {
 	var wait time.Duration
 	var port int
-	var serviceAccountFilePath string
+	var serviceAccountFile string
 	flag.DurationVar(&wait, "graceful-timeout", time.Second*5, "The Duration for which the server gracefully waits for the existing connections to finish")
-	flag.StringVar(&serviceAccountFilePath, "svc", "service.json", "The path to the firebase service account JSON file")
+	flag.StringVar(&serviceAccountFile, "svc", "", "The content of the firebase service account JSON file")
 	flag.IntVar(&port, "port", 8080, "Port to listen on")
 	flag.Parse()
 
 	ctx := context.Background()
-	serviceAccount := option.WithCredentialsFile(serviceAccountFilePath)
+	serviceAccount := option.WithCredentialsJSON([]byte(serviceAccountFile))
 	app, err := firebase.NewApp(ctx, nil, serviceAccount)
 	if err != nil {
 		logrus.Fatalf("error initializing app: %v\n", err)

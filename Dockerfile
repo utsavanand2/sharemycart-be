@@ -30,4 +30,4 @@ USER app
 
 EXPOSE 8080
 
-ENTRYPOINT ["/app/server"]
+ENTRYPOINT ["/app/server", "--port=4010"]

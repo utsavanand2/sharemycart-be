@@ -11,10 +11,9 @@
 package swagger
 
 import (
+	"log"
 	"net/http"
 	"time"
-
-	"github.com/sirupsen/logrus"
 )
 
 // Logger logs the events of the handlers
@@ -24,7 +23,7 @@ func Logger(inner http.Handler, name string) http.Handler {
 
 		inner.ServeHTTP(w, r)
 
-		logrus.Printf(
+		log.Printf(
 			"%s %s %s %s",
 			r.Method,
 			r.RequestURI,

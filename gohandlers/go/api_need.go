@@ -38,6 +38,12 @@ func (f *Firebase) DeleteNeeds(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
+// DeleteNeedList deletes the need list
+func (f *Firebase) DeleteNeedList(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
 // AddNeededItem adds a needed item
 func (f *Firebase) AddNeededItem(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
