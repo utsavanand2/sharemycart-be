@@ -10,7 +10,10 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
 
-# tags are used for organizing operations
+servers:
+  - url: http://localhost:4010
+    description: Mock server
+
 tags:
 - name: implemented
   description: |
@@ -18,10 +21,6 @@ tags:
     Everything not tagged like this is only modeled
 - name: authentication
   description: Operations that affect/perform authentication
-- name: shopping list
-  description: Create, Retrieve, Update and Delete operations on shopping lists
-- name: shopping list item
-  description: Create, Retrieve, Update and Delete operations on shopping list items
 
 paths:
   /accounts:
@@ -129,11 +128,12 @@ paths:
   /needs:
     get:
       tags:
-      - need
       - implemented
       summary: get all need lists
       operationId: getNeedLists
       description: Gets all the need lists belonging to the user
+      parameters:
+      - $ref: "#/components/parameters/isDefault"
       responses:
         200:
           description: successful retrieval of list objects
@@ -142,12 +142,11 @@ paths:
               schema:
                 type: array 
                 items: 
-                  $ref: "#/components/schemas/ShoppingList"
+                  $ref: "#/components/schemas/List"
         401:
           description: you are not authorized to see the lists, you need to log in
     post:
       tags:
-      - need
       - implemented
       summary: adds a need list
       operationId: addNeedList
@@ -156,14 +155,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ShoppingList'
+              $ref: '#/components/schemas/List'
       responses:
         201:
           description: list created, need list object returned
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingList'
+                $ref: '#/components/schemas/List'
         401:
           description: unauthorized access to the resources, you need to log in
   /needs/{id}:
@@ -174,20 +173,14 @@ paths:
       operationId: getNeeds
       description: Retrieves all items which are needed to be supplied with with id = <id>
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        required: true
-        description: The id of the need list the item belongs to
+      - $ref: '#/components/parameters/id'
       responses:
         200:
           description: successful retrieval
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingList'
+                $ref: '#/components/schemas/List'
         404:
           description: No needs recorded yet
         401:
@@ -195,24 +188,18 @@ paths:
     delete:
       tags:
       - implemented
-      summary: removes all needed items
-      operationId: deleteNeeds
-      description: removes all needed items
+      summary: deletes a need list
+      operationId: deleteNeedList
+      description: Deletes a list removing all needed items
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        required: true
-        description: The id of the need list the item belongs to
+      - $ref: '#/components/parameters/id'
       responses:
         200:
           description: successful deletion
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingList'
+                $ref: '#/components/schemas/List'
         400:
           description: id in url is not a valid identifier (not a valid integer)
           
@@ -223,25 +210,19 @@ paths:
       operationId: addNeededItem
       description: Adds a needed item to the system
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        required: true
-        description: The id of the need list the item belongs to
+      - $ref: '#/components/parameters/id'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ShoppingListItem'
+              $ref: '#/components/schemas/ListItem'
       responses:
         201:
           description: successful addition, created object in json is returned
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingListItem'
+                $ref: '#/components/schemas/ListItem'
         200:
           description: request was properly processed but something went wrong
         404:
@@ -251,7 +232,7 @@ paths:
         400:
           description: id in url is not a valid identifier
   
-  /needs/{item_id}:
+  /needs/{id}/items/{item_id}:
     put:
       tags:
       - implemented
@@ -259,32 +240,20 @@ paths:
       operationId: updateNeededItem
       description: Updates a needed item
       parameters:
-      - in: header
-        name: id
-        schema:
-          type: string
-          format: uuid
-        required: true
-        description: The id of the need list the item belongs to
-      - in: path
-        name: item_id
-        schema: 
-          type: string
-          format: uuid
-        required: true
-        description: The id of the needed item to update
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/itemId'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ShoppingListItem'
+              $ref: '#/components/schemas/ListItem'
       responses:
         200:
           description: successful update
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingListItem'
+                $ref: '#/components/schemas/ListItem'
         404:
           description: The item_id provided does not belong to the needs
         401:
@@ -298,27 +267,15 @@ paths:
       operationId: deleteNeededItem
       description: Deletes an existing needed item
       parameters: 
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        required: true
-        description: The id of the need list the item belongs to
-      - in: path
-        name: item_id
-        schema:
-          type: string
-          format: uuid
-        required: true
-        description: The id of the needed item to delete
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/itemId'
       responses:
         200:
           description: successful deletion
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingListItem'
+                $ref: '#/components/schemas/ListItem'
         404:
           description: the id or item_id provided does not belong to any existing list or list item respectively
         401:
@@ -328,11 +285,12 @@ paths:
   /shoppinglists:
     get:
       tags:
-      - shopping list
       - implemented
       summary: get all the shopping lists
       operationId: getShoppingLists
       description: Gets all the shopping lists belonging to the user
+      parameters:
+      - $ref: "#/components/parameters/isDefault"
       responses:
         200:
           description: successful retrieval of list objects
@@ -341,12 +299,11 @@ paths:
               schema:
                 type: array 
                 items: 
-                  $ref: "#/components/schemas/ShoppingList"
+                  $ref: "#/components/schemas/List"
         401:
           description: you are not authorized to see the lists, you need to log in
     post:
       tags:
-      - shopping list
       - implemented
       summary: adds a shopping list
       operationId: addShoppingList
@@ -355,34 +312,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ShoppingList'
+              $ref: '#/components/schemas/List'
       responses:
         201:
           description: list created, shopping list object returned
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingList'
+                $ref: '#/components/schemas/List'
         401:
           description: unauthorized access to the resources, you need to log in
           
   /shoppinglists/{id}:
     get:
       tags:
-      - shopping list
-      - shopping list
       - implemented
       summary: gets all items under shopping list with id = <id>
       operationId: getShoppingListItems
       description: Gets all items under shopping list with id = <id>
       parameters: 
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-        description: The id of the shopping list to retrieve
+      - $ref: '#/components/parameters/id'
       - name: $expand
         in: query
         required: false
@@ -390,14 +339,13 @@ paths:
           type: string
           enum:
             - items
-
       responses:
         200:
           description: successful retrieval
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingList'
+                $ref: '#/components/schemas/List'
         400:
           description: id in url is not a valid identifier
         404:
@@ -406,31 +354,24 @@ paths:
           description: unauthorized access to the resources, you need to log in
     put:
       tags:
-      - shopping list
       - implemented
       summary: updates a shopping list
       operationId: updateShoppingList
       description: Updates a shopping list that exists
       parameters: 
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-        description: The id of the shopping list to update
+      - $ref: '#/components/parameters/id'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ShoppingList'
+              $ref: '#/components/schemas/List'
       responses:
         200:
           description: successful update
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingList'
+                $ref: '#/components/schemas/List'
         404:
           description: the id provided does not belong to any existing list
         401:
@@ -439,26 +380,19 @@ paths:
           description: id in url is not a valid identifier
     delete:
       tags:
-      - shopping list
       - implemented
       summary: deletes a shopping list
       operationId: deleteShoppingList
       description: Deletes a shopping list from the system
       parameters: 
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-        description: The id of the shopping list to delete
+      - $ref: '#/components/parameters/id'
       responses:
         200:
           description: successful deletion
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingList'
+                $ref: '#/components/schemas/List'
         404:
           description: the id provided does not belong to any existing list
         401:
@@ -469,31 +403,24 @@ paths:
   /shoppinglists/{id}/items:
     post:
       tags:
-      - shopping list item
       - implemented
       summary: adds a shopping list item
       operationId: addShoppingListItem
       description: Adds a shopping list item to the system
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        required: true
-        description: The id of the shopping list to add an item to
+      - $ref: '#/components/parameters/id'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ShoppingListItem'
+              $ref: '#/components/schemas/ListItem'
       responses:
         201:
           description: successful addition, created object in json is returned
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingListItem'
+                $ref: '#/components/schemas/ListItem'
         404:
           description: the id provided does not belong to any existing list
         401:
@@ -506,38 +433,25 @@ paths:
   /shoppinglists/{id}/items/{item_id}:
     put:
       tags:
-      - shopping list item
       - implemented
       summary: updates an existing shopping list item
       operationId: updateShoppingListItem
       description: Updates a shopping list item
       parameters:
-      - in: path
-        name: id
-        schema: 
-          type: string
-          format: uuid
-        required: true
-        description: The id of the shopping list the item belongs to
-      - in: path
-        name: item_id
-        schema: 
-          type: string
-          format: uuid
-        required: true
-        description: The id of the shopping list item to update
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/itemId'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ShoppingListItem'
+              $ref: '#/components/schemas/ListItem'
       responses:
         200:
           description: successful update
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingListItem'
+                $ref: '#/components/schemas/ListItem'
         404:
           description: the id or item_id provided does not belong to any existing list or list item respectively
         401:
@@ -546,33 +460,20 @@ paths:
           description: id or item_id in url is not a valid identifier for a list or list item respectively
     delete:
       tags:
-      - shopping list item
       - implemented
       summary: deletes an existing shopping list item
       operationId: deleteShoppingListItem
       description: Deletes an existing shopping list item
       parameters: 
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        required: true
-        description: The id of the shopping list the item belongs to
-      - in: path
-        name: item_id
-        schema:
-          type: string
-          format: uuid
-        required: true
-        description: The id of the shopping list item to delete
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/itemId'
       responses:
         200:
           description: successful deletion
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingListItem'
+                $ref: '#/components/schemas/ListItem'
         404:
           description: the id or item_id provided does not belong to any existing list or list item respectively
         401:
@@ -588,32 +489,20 @@ paths:
       operationId: addNeededItemToShoppingListItem
       description: Adds a needed item similar like one which already exists on another shopping list
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        required: true
-        description: The id of the shopping list the item belongs to
-      - in: path
-        name: item_id
-        schema:
-          type: string
-          format: uuid
-        required: true
-        description: The id of the shopping list item which serves as template for the new need
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/itemId'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ShoppingListItem'
+              $ref: '#/components/schemas/ListItem'
       responses:
         201:
           description: successful addition, created object in json is returned
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/ShoppingListItem'
+                $ref: '#/components/schemas/ListItem'
         200:
           description: request was properly processed but something went wrong
         404:
@@ -628,6 +517,28 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+  parameters:
+    id:
+      in: path
+      name: id
+      schema:
+        type: string
+        format: uuid
+      required: true
+    itemId:
+      in: path
+      name: item_id
+      schema:
+        type: string
+        format: uuid
+      required: true
+    isDefault:
+      in: query
+      name: isDefault
+      description: Filters the lists to those which are the default for each type
+      required: false
+      schema:
+        type: boolean
   schemas:
     Registration:
       type: object
@@ -681,7 +592,7 @@ components:
           type: string
           example: my-new-really-really-strong-passsword
           
-    ShoppingList:
+    List:
       type: object
       required:
       - name
@@ -697,12 +608,19 @@ components:
           type: string
           enum: [need, shopping]
           default: need
+        isDefault:
+          type: boolean
+          default: false
+          description: |
+            indicates that a shopping list or a need list is the default list.
+            This is particularly important when creating a needed item for a shopping list: 
+            The needed item will be created in the default need list.
         items:
           type: array
           items:
-            $ref: '#/components/schemas/ShoppingListItem'
+            $ref: '#/components/schemas/ListItem'
 
-    ShoppingListItem:
+    ListItem:
       type: object
       required:
       - name

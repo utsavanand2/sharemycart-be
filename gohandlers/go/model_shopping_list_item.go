@@ -1,7 +1,8 @@
+// Package swagger ...
 /*
  * Share my Cart
  *
- * Stay home. Stay safe. I'll bring your groceries along as I get mine. 
+ * Stay home. Stay safe. I'll bring your groceries along as I get mine.
  *
  * API version: 0.1.0
  * Contact: sharemycart@beimir.net
@@ -9,9 +10,9 @@
  */
 package swagger
 
+// ShoppingListItem holds a shopping list item and relevant metadata
 type ShoppingListItem struct {
-
-	Id string `json:"id,omitempty"`
+	ID string `json:"id,omitempty"`
 
 	Name string `json:"name"`
 

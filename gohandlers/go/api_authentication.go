@@ -1,3 +1,4 @@
+// Package swagger ...s
 /*
  * Share my Cart
  *
@@ -13,7 +14,7 @@ import (
 	"net/http"
 )
 
-// AddUser creates a new user in Firebase Auth
+// AddUser creates a new user
 func (f *Firebase) AddUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
@@ -25,19 +26,19 @@ func (f *Firebase) EmailVerification(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// LogoutUser logs the user out of Firebase Auth
+// LogoutUser logs out the user session
 func (f *Firebase) LogoutUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
-// ResetPassword resets the password of the user
+// ResetPassword resets the user password
 func (f *Firebase) ResetPassword(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
-// UserLogin logs the user in in Firebase Auth
+// UserLogin logs the user in
 func (f *Firebase) UserLogin(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)

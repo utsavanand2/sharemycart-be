@@ -1,4 +1,3 @@
-// Package swagger ...
 /*
  * Share my Cart
  *
@@ -10,9 +9,13 @@
  */
 package swagger
 
-// Login holds the username and password
-type Login struct {
-	Username string `json:"username"`
+// ListItem is the shopping list item
+type ListItem struct {
+	Id string `json:"id,omitempty"`
 
-	Password string `json:"password"`
+	Name string `json:"name"`
+
+	Amount float32 `json:"amount"`
+
+	Unit string `json:"unit,omitempty"`
 }

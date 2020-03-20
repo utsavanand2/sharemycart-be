@@ -1,7 +1,7 @@
 /*
  * Share my Cart
  *
- * Stay home. Stay safe. I'll bring your groceries along as I get mine. 
+ * Stay home. Stay safe. I'll bring your groceries along as I get mine.
  *
  * API version: 0.1.0
  * Contact: sharemycart@beimir.net
@@ -9,86 +9,82 @@
  */
 package swagger
 
-import (
-	"net/http"
-)
+// func (f *Firebase) AddNeedList(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func AddNeedList(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) AddNeededItem(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func AddNeededItem(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) AddNeededItemToShoppingListItem(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func AddNeededItemToShoppingListItem(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) AddShoppingList(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func AddShoppingList(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) AddShoppingListItem(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func AddShoppingListItem(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) DeleteNeedList(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func DeleteNeededItem(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) DeleteNeededItem(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func DeleteNeeds(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) DeleteShoppingList(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func DeleteShoppingList(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) DeleteShoppingListItem(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func DeleteShoppingListItem(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) GetNeedLists(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func GetNeedLists(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) GetNeeds(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func GetNeeds(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) GetShoppingListItems(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func GetShoppingListItems(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) GetShoppingLists(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func GetShoppingLists(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) UpdateNeededItem(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func UpdateNeededItem(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) UpdateShoppingList(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }
 
-func UpdateShoppingList(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
-
-func UpdateShoppingListItem(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-}
+// func (f *Firebase) UpdateShoppingListItem(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// }

@@ -1,3 +1,4 @@
+// Package swagger ...
 /*
  * Share my Cart
  *
@@ -16,18 +17,19 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// Logger logs the relevant info about the requests
+// Logger logs the events of the handlers
 func Logger(inner http.Handler, name string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
-		defer logrus.Printf(
+
+		inner.ServeHTTP(w, r)
+
+		logrus.Printf(
 			"%s %s %s %s",
 			r.Method,
 			r.RequestURI,
 			name,
 			time.Since(start),
 		)
-
-		inner.ServeHTTP(w, r)
 	})
 }

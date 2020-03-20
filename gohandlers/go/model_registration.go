@@ -1,7 +1,8 @@
+// Package swagger ...
 /*
  * Share my Cart
  *
- * Stay home. Stay safe. I'll bring your groceries along as I get mine. 
+ * Stay home. Stay safe. I'll bring your groceries along as I get mine.
  *
  * API version: 0.1.0
  * Contact: sharemycart@beimir.net
@@ -9,8 +10,8 @@
  */
 package swagger
 
+// Registration holds the Username, Email, and Password of the user
 type Registration struct {
-
 	Username string `json:"username"`
 
 	Email string `json:"email"`

@@ -1,7 +1,8 @@
+// Package swagger ...
 /*
  * Share my Cart
  *
- * Stay home. Stay safe. I'll bring your groceries along as I get mine. 
+ * Stay home. Stay safe. I'll bring your groceries along as I get mine.
  *
  * API version: 0.1.0
  * Contact: sharemycart@beimir.net
@@ -9,7 +10,7 @@
  */
 package swagger
 
+// EmailVerify holds an email to be verified
 type EmailVerify struct {
-
 	Email string `json:"email"`
 }

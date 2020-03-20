@@ -1,6 +1,8 @@
 package swagger
 
-import firebase "firebase.google.com/go"
+import (
+	firebase "firebase.google.com/go"
+)
 
 // The Firebase struct is used for dependency injection
 type Firebase struct {

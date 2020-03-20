@@ -1,3 +1,4 @@
+// Package swagger ...
 /*
  * Share my Cart
  *
@@ -17,6 +18,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Route represents a Route to the server with specified attributes
 type Route struct {
 	Name        string
 	Method      string
@@ -25,6 +27,7 @@ type Route struct {
 	Firebase    Firebase
 }
 
+// Routes is a slice of Route
 type Routes []Route
 
 // NewRouter returns a new mux.Router
@@ -46,6 +49,7 @@ func (firebase *Firebase) NewRouter() *mux.Router {
 	return router
 }
 
+// Index reesponds to the root path
 func (firebase *Firebase) Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello World!")
 }
@@ -141,18 +145,18 @@ func getRouteSlice(firebase *Firebase) Routes {
 		},
 
 		Route{
-			"DeleteNeededItem",
+			"DeleteNeedList",
 			strings.ToUpper("Delete"),
-			"/needs/{item_id}",
-			firebase.DeleteNeededItem,
+			"/needs/{id}",
+			firebase.DeleteNeedList,
 			*firebase,
 		},
 
 		Route{
-			"DeleteNeeds",
+			"DeleteNeededItem",
 			strings.ToUpper("Delete"),
-			"/needs/{id}",
-			firebase.DeleteNeeds,
+			"/needs/{id}/items/{item_id}",
+			firebase.DeleteNeededItem,
 			*firebase,
 		},
 
@@ -207,7 +211,7 @@ func getRouteSlice(firebase *Firebase) Routes {
 		Route{
 			"UpdateNeededItem",
 			strings.ToUpper("Put"),
-			"/needs/{item_id}",
+			"/needs/{id}/items/{item_id}",
 			firebase.UpdateNeededItem,
 			*firebase,
 		},
@@ -217,86 +221,6 @@ func getRouteSlice(firebase *Firebase) Routes {
 			strings.ToUpper("Put"),
 			"/shoppinglists/{id}",
 			firebase.UpdateShoppingList,
-			*firebase,
-		},
-
-		Route{
-			"UpdateShoppingListItem",
-			strings.ToUpper("Put"),
-			"/shoppinglists/{id}/items/{item_id}",
-			firebase.UpdateShoppingListItem,
-			*firebase,
-		},
-
-		Route{
-			"AddNeedList",
-			strings.ToUpper("Post"),
-			"/needs",
-			firebase.AddNeedList,
-			*firebase,
-		},
-
-		Route{
-			"GetNeedLists",
-			strings.ToUpper("Get"),
-			"/needs",
-			firebase.GetNeedLists,
-			*firebase,
-		},
-
-		Route{
-			"AddShoppingList",
-			strings.ToUpper("Post"),
-			"/shoppinglists",
-			firebase.AddShoppingList,
-			*firebase,
-		},
-
-		Route{
-			"DeleteShoppingList",
-			strings.ToUpper("Delete"),
-			"/shoppinglists/{id}",
-			firebase.DeleteShoppingList,
-			*firebase,
-		},
-
-		Route{
-			"GetShoppingListItems",
-			strings.ToUpper("Get"),
-			"/shoppinglists/{id}",
-			firebase.GetShoppingListItems,
-			*firebase,
-		},
-
-		Route{
-			"GetShoppingLists",
-			strings.ToUpper("Get"),
-			"/shoppinglists",
-			firebase.GetShoppingLists,
-			*firebase,
-		},
-
-		Route{
-			"UpdateShoppingList",
-			strings.ToUpper("Put"),
-			"/shoppinglists/{id}",
-			firebase.UpdateShoppingList,
-			*firebase,
-		},
-
-		Route{
-			"AddShoppingListItem",
-			strings.ToUpper("Post"),
-			"/shoppinglists/{id}/items",
-			firebase.AddShoppingListItem,
-			*firebase,
-		},
-
-		Route{
-			"DeleteShoppingListItem",
-			strings.ToUpper("Delete"),
-			"/shoppinglists/{id}/items/{item_id}",
-			firebase.DeleteShoppingListItem,
 			*firebase,
 		},
 
