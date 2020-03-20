@@ -7,7 +7,7 @@ all: docker
 
 .PHONY: apigen
 apigen:
-	swagger-codegen generate -i gohandlers/schema/swagger.yaml -l go-server -o gohandlers/
+	cd gohandlers && swagger-codegen generate -i schema/swagger.yaml -l go-server -o v2/
 	rm gohandlers/main.go
 
 .PHONY: dist
