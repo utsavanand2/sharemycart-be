@@ -6,7 +6,7 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY main.go go.mod go.sum gohandlers ./
+COPY . ./
 
 ARG GIT_COMMIT
 ARG VERSION
@@ -30,4 +30,4 @@ USER app
 
 EXPOSE 8080
 
-ENTRYPOINT ["/app/server", "--port=4010"]
+ENTRYPOINT ["/app/server", "--port=8080"]
